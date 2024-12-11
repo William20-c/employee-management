@@ -12,10 +12,18 @@ const update = async (id, data) => {
     return await Solicitud.update(data, { where: { id } });
 };
 
-const deleteByEmpleadoId = async (id_empleado) => {
-    await Solicitud.destroy({
-        where: { id_empleado }
+const deleteSolicitud = async (id) => {
+    const solicitud = await Solicitud.findByPk(id);
+
+    if (solicitud) {
+        return await solicitud.destroy();
+    }
+};
+
+const getAllSolicitudEmpleado = async (id_empleado) => {
+    return await Solicitud.findAll({
+        where: { id_empleado:id_empleado }
     });
 };
 
-module.exports = { findById, create, update, deleteByEmpleadoId };
+module.exports = { findById, create, update, deleteSolicitud,getAllSolicitudEmpleado };
