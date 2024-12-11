@@ -5,12 +5,12 @@ const userRepository = require('../repositories/userRepository');
 
 const registro = async(nombre, email, password, rol) => {
     const hashPassword = await bcrypt.hash(password,10);
-    const usuario = await userRepository.createUser(nombre, email, correo,hashPassword, rol);
+    const usuario = await userRepository.createUser({nombre:nombre, correo:email,password:hashPassword, rol:rol});
     return usuario;
 }
 
-const login = async(email, password) => {
-    const usuario = await userRepository.findByEmail(email);
+const login = async(correo, password) => {
+    const usuario = await userRepository.findByEmail(correo);
 
     if(!usuario) throw new Error('Usuario no encontrado');
 
@@ -23,9 +23,9 @@ const login = async(email, password) => {
         nombre: usuario.nombre,
         correo: usuario.correo,
         rol: usuario.rol
-    }, secretKey, {expiresIn});
+    }, secretKey, {expiresIn: expiresIn});
 
-    return token;
+    return ({token: token, usuario: usuario});
 }
 
 module.exports = {registro,login}

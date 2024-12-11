@@ -1,10 +1,10 @@
 const express = require('express');
 const { connectDB, sequelize } = require('./configs/database');
-const Empleado = require('./models/Empleado');
-const Solicitud = require('./models/Solicitud');
-const User = require('./models/User');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
+const empleadoRoutes = require('./routes/empleadoRoutes');
+const solicitudRoutes = require('./routes/solicitudRoutes');
+
 
 
 const app = express();
@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.use('/api/auth',authRoutes);
+app.use('/api/empleados', empleadoRoutes);
+app.use('/api/solicitud', solicitudRoutes);
 
 connectDB();
 
