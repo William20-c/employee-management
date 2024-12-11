@@ -4,11 +4,18 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const empleadoRoutes = require('./routes/empleadoRoutes');
 const solicitudRoutes = require('./routes/solicitudRoutes');
-
+const cors = require('cors');
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(bodyParser.json());
 
