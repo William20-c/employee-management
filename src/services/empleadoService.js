@@ -1,18 +1,17 @@
 const userRepository = require('../repositories/userRepository');
 const empleadoRepository = require('../repositories/empleadoRepository.js');
 const solicitudRepository = require('../repositories/solicitudRepository.js');
-const bcrypt = require('bcrypt');
-const Empleado = require('../models/Empleado.js');
+const bcrypt = require('bcryptjs');
 
 const createOrUpdate = async(data) => {
-    const {id, nombre, fecha_ingreso, salario} = data;
-    const existe = empleadoRepository.findById(id);
+    const {id, nombre, fecha_ingreso, salario, correo} = data;
+    const existe = id ? await empleadoRepository.findById(id) : null;
 
     let user = await userRepository.findByEmail(correo);
 
     if (!user) {
         const hashedPassword = await bcrypt.hash('123456', 10);
-        user = await userRepository.create({
+        user = await userRepository.createUser({
             nombre,
             correo,
             password: hashedPassword,
@@ -36,7 +35,11 @@ const getAllEmpleados = async(pagina, totalPagina) => {
 
     const empleado = await empleadoRepository.getAll(offset, limit);
 
-    return limit;
+    return empleado;
+}
+
+const getEmpleadoByIdUser = async(id_user) => {
+    return await empleadoRepository.findByIdUser(id_user);
 }
 
 const deleteEmpleado = async(id) => {
@@ -47,4 +50,4 @@ const deleteEmpleado = async(id) => {
     return empleado;
 }
 
-module.exports = { createOrUpdate, getAllEmpleados, deleteEmpleado }
+module.exports = { createOrUpdate, getAllEmpleados, deleteEmpleado, getEmpleadoByIdUser }

@@ -4,6 +4,12 @@ const findById = async(id) => {
     return await Empleado.findByPk(id);
 }
 
+const findByIdUser = async(id_user) => {
+    return await Empleado.findOne({
+        where:{id_user}
+    })
+}
+
 const create = async(data) => {
     return await Empleado.create(data);
 }
@@ -15,8 +21,7 @@ const update = async(id, data) => {
 const getAll = async(offset, limit) => {
     return await Empleado.findAll({
         offset,
-        limit,
-        include: [{ model:'solicitudes', as: 'solicitudes' }]
+        limit
     })
 }
 
@@ -28,4 +33,4 @@ const deleteEmpleado = async(id) => {
     }
 }
 
-module.exports = {findById, create, update, getAll, deleteEmpleado};
+module.exports = {findById, create, update, getAll, deleteEmpleado, findByIdUser};
