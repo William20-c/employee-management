@@ -41,7 +41,6 @@ Todas las APIs requieres autenticación basica.
 
 En este proyecto, hemos implementado varias **buenas prácticas** y **medidas de seguridad** para asegurar que la aplicación sea robusta y esté protegida contra amenazas comunes como la **inyección SQL**. A continuación, se detallan las prácticas y medidas aplicadas.
 
-## Buenas Prácticas Usadas
 
 ### 1. Uso de ORM (Sequelize) para la interacción con la base de datos
 - **Sequelize** es un ORM (Object-Relational Mapping) que abstrae las consultas SQL y las convierte en operaciones sobre objetos JavaScript. 
@@ -49,8 +48,37 @@ En este proyecto, hemos implementado varias **buenas prácticas** y **medidas de
 
 **Ejemplo de consulta segura con Sequelize:**
 ```javascript
-const usuario = await User.findOne({
-  where: { correo: 'example@example.com' }
-});
+    const usuario = await User.findOne({
+        where: { correo: 'example@example.com' }
+    });
+```
+
+### 2. JWT para autenticación segura 
+- **JSON Web Tokens (JWT)** proporciona una **autenticación basada en tokens**, que no requiere almacenar información sensible como contraseñas en la sesión del servidor.
+- **JWT se firma** con una clave secreta y puede ser validado para asegurar que las solicitudes provienen de usuarios autenticados.
+
+### 3. Encriptación de contraseñas
+- Las contraseñas de los usuarios se encriptan utilizando **bcrypt** antes de ser almacenadas en la base de datos. Esto asegura que, incluso si la base de datos es comprometida, las contraseñas no estarán expuestas.
+
+### 4. Uso de variables de entorno
+- Se utilizan **variables de entorno** para almacenar información sensible como las credenciales de la base de datos y las claves secretas de JWT, de forma que no estén expuestas en el código fuente.
+
+
+## Medidas de Seguridad contra Inyección SQL
+
+En este proyecto, hemos implementado varias **buenas prácticas** y **medidas de seguridad** para asegurar que la aplicación sea robusta y esté protegida contra amenazas comunes como la **inyección SQL**. A continuación, se detallan las prácticas y medidas aplicadas.
+
+
+### 1. Uso de ORM y consultas parametrizadas
+- Sequelize utiliza **consultas parametrizadas** de manera automática para prevenir la inyección SQL. Las entradas del usuario nunca se concatenan directamente en las consultas SQL.
+
+### 2. Protección contra inyecciones SQL
+- Sequelize gestiona automáticamente las consultas SQL de forma segura utilizando **consultas parametrizadas**, lo que previene que los valores de los usuarios sean tratados como código SQL.
+
+### 3. Escapado de caracteres en consultas SQL
+- Si es necesario escribir consultas SQL personalizadas en Sequelize, podemos usar **consultas parametrizadas** para garantizar que los valores de entrada no sean tratados como código SQL
+
+
+
 
 
