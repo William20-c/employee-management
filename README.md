@@ -30,12 +30,24 @@ Todas las APIs requieres autenticación basica.
    docker-compose up -d
    ```
 
-5. Importa el archivo script.sql que se encuentra en la ruta:
+5. Importa el archivo employee_management.dump en postgreSQL que se encuentra en la ruta:
    ```bash
-   scrips_db/script.sql
+   db/employee_management.dump
    ```
 
 6. Ingresa a la url **http://localhost:3000**
+
+**Accesos APP Employee:**
+```json
+   {
+      "correo":"admin@example.com",
+      "password":"123456"
+   }
+```
+
+**Contraseña genérica:**
+- Todos los empleados creados quedan con la contraseña genérica: **123456**
+
 
 ## Buenas Prácticas Usadas
 
