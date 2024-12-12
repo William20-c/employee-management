@@ -24,18 +24,12 @@ Todas las APIs requieres autenticación basica.
    ```
 3. Configura las variables de entorno, creando el archivo .env.
 
-4. Ejecuta el comando una vez configuradas las variables de entorno para generar el contendor de la base de datos y de la aplicación
+4. Ejecuta el comando una vez configuradas las variables de entorno para generar el contendor de la base de datos y del node
 
    ```bash
    docker-compose up -d
    ```
-
-5. Importa el archivo employee_management.dump en postgreSQL que se encuentra en la ruta:
-   ```bash
-   db/employee_management.dump
-   ```
-
-6. Ingresa a la url **http://localhost:3000**
+5. Ingresa a la url **http://localhost:3000**
 
 **Accesos APP Employee:**
 ```json
